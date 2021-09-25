@@ -14,11 +14,15 @@ class cobra {
     void updateDirection(const int &dir);
     void display();
 
+    void spawnFood();
+    bool isInsideCobra(const pair<int, int> &cell) const;
+
   private:
     static constexpr int initialSize{5};
     WINDOW *currentWin;
     int yMax, xMax;
     std::list<pair<int, int>> locations;
+    pair<int, int> food;
     char character;
     int input{KEY_UP};
     directions direction{UP};

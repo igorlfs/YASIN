@@ -18,6 +18,7 @@ cobra::cobra(WINDOW *win, const char &c) : currentWin(win), character(c) {
     getmaxyx(this->currentWin, this->yMax, this->xMax);
     keypad(this->currentWin, true);
     this->spawnCobra();
+    this->spawnFood();
 }
 void cobra::spawnCobra() {
     for (int i = 0; i < this->initialSize; ++i)
@@ -50,4 +51,17 @@ void cobra::move() {
 void cobra::display() {
     for (auto i : this->locations)
         mvwaddch(this->currentWin, i.first, i.second, this->character);
+}
+void cobra::spawnFood() {
+    do
+        this->food = {std::randomNumber(this->yMax - 1),
+                      std::randomNumber(this->xMax - 1)};
+    while (isInsideCobra(this->food));
+    mvwaddch(this->currentWin, this->food.first, this->food.second,
+             this->character);
+}
+bool cobra::isInsideCobra(const pair<int, int> &cell) const {
+    for (auto i : this->locations)
+        if (i == cell) return true;
+    return false;
 }
