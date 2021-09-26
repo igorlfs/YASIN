@@ -14,7 +14,7 @@ int randomNumber(int ceiling) {
 
 using namespace Cobra;
 
-cobra::cobra(WINDOW *win, const char &c) : currentWin(win), character(c) {
+cobra::cobra(WINDOW *win, const int &c) : currentWin(win), character(c) {
     getmaxyx(this->currentWin, this->yMax, this->xMax);
     keypad(this->currentWin, true);
     this->spawnCobra();

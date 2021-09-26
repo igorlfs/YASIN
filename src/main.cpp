@@ -21,7 +21,7 @@ int main() {
     /* mvprintw((yMax / 2) + 9, (xMax / 2) - 12, "Score:"); */
 
     std::unique_ptr<Cobra::cobra> p =
-        std::make_unique<Cobra::cobra>(gameWindow, '@');
+        std::make_unique<Cobra::cobra>(gameWindow, (int)'@');
 
     std::thread play([&p, &gameWindow]() {
         while (1) {

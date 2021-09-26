@@ -7,7 +7,7 @@ enum directions { VERTICAL, HORIZONTAL };
 namespace Cobra {
 class cobra {
   public:
-    cobra(WINDOW *win, const char &c);
+    cobra(WINDOW *win, const int &c);
     void spawnCobra();
 
     void move();
