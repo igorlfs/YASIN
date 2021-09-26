@@ -7,7 +7,7 @@ namespace std {
 int randomNumber(int ceiling) {
     random_device dev;
     mt19937 rng(dev());
-    uniform_int_distribution<std::mt19937::result_type> dist(0, ceiling);
+    uniform_int_distribution<std::mt19937::result_type> dist(1, ceiling);
     return dist(rng);
 }
 } // namespace std
@@ -46,7 +46,7 @@ void cobra::move() {
         case KEY_LEFT: newHead = {oldHead.first, oldHead.second - 1}; break;
         case KEY_RIGHT: newHead = {oldHead.first, oldHead.second + 1}; break;
     }
-    this->locations.push_front(newHead);
+    if (boundaryCheck(newHead.first, newHead.second)) gameOver();
     pair<int, int> tail = this->locations.back();
     mvwaddch(this->currentWin, tail.first, tail.second, ' ');
     this->locations.pop_back();
@@ -57,8 +57,8 @@ void cobra::display() {
 }
 void cobra::spawnFood() {
     do
-        this->food = {std::randomNumber(this->yMax - 1),
-                      std::randomNumber(this->xMax - 1)};
+        this->food = {std::randomNumber(this->yMax - 2),
+                      std::randomNumber(this->xMax - 2)};
     while (isInsideCobra(this->food));
     mvwaddch(this->currentWin, this->food.first, this->food.second,
              this->character);
@@ -67,4 +67,19 @@ bool cobra::isInsideCobra(const pair<int, int> &cell) const {
     for (auto i : this->locations)
         if (i == cell) return true;
     return false;
+}
+bool cobra::boundaryCheck(const int &m, const int &n) const {
+    return (m <= 0 || m >= this->yMax - 1 || n <= 0 || n >= this->xMax - 1);
+}
+void cobra::gameOver() const {
+    int yMax, xMax;
+    getmaxyx(stdscr, yMax, xMax);
+    WINDOW *gameOver = newwin(3, 12, (yMax / 2) - 2, (xMax / 2) - 6);
+    box(gameOver, 0, 0);
+    refresh();
+    mvwprintw(gameOver, 1, 1, "Game Over!");
+    wgetch(gameOver);
+    delwin(gameOver);
+    endwin();
+    std::exit(1);
 }
