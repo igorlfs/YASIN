@@ -61,7 +61,7 @@ void cobra::spawnFood() {
                       std::randomNumber(this->xMax - 2)};
     while (isInsideCobra(this->food));
     mvwaddch(this->currentWin, this->food.first, this->food.second,
-             this->character);
+             this->foodChar);
 }
 bool cobra::isInsideCobra(const pair<int, int> &cell) const {
     for (auto i : this->locations)

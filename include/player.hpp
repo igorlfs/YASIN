@@ -18,7 +18,9 @@ class cobra {
     bool isInsideCobra(const pair<int, int> &cell) const;
 
   private:
-    static constexpr int initialSize{5};
+    static constexpr int initialSize{4};
+    static constexpr int foodChar{(int)'$'};
+
     WINDOW *currentWin;
     int yMax, xMax;
     std::list<pair<int, int>> locations;
