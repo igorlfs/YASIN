@@ -3,7 +3,7 @@
 #include <list>
 #include <ncurses.h>
 using std::pair;
-enum directions { UP, DOWN, LEFT, RIGHT };
+enum directions { VERTICAL, HORIZONTAL };
 namespace Cobra {
 class cobra {
   public:
@@ -25,7 +25,7 @@ class cobra {
     pair<int, int> food;
     char character;
     int input{KEY_UP};
-    directions direction{UP};
+    directions direction{VERTICAL};
 };
 } // namespace Cobra
 #endif

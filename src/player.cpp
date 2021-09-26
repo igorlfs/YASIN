@@ -25,12 +25,15 @@ void cobra::spawnCobra() {
         this->locations.push_back({this->yMax / 2 + i, this->xMax / 2});
 }
 void cobra::updateDirection(const int &input) {
-    std::map<int, directions> invalidMoves = {
-        {KEY_UP, DOWN}, {KEY_DOWN, UP}, {KEY_LEFT, RIGHT}, {KEY_RIGHT, LEFT}};
+    std::map<int, directions> invalidMoves = {{KEY_UP, VERTICAL},
+                                              {KEY_DOWN, VERTICAL},
+                                              {KEY_LEFT, HORIZONTAL},
+                                              {KEY_RIGHT, HORIZONTAL}};
     for (auto i = invalidMoves.begin(); i != invalidMoves.end(); ++i) {
         if (input == i->first && i->second != this->direction) {
             this->input = input;
             this->direction = i->second;
+            return;
         }
     }
 }
