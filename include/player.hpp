@@ -2,7 +2,6 @@
 #define PLAYER_H
 #include <list>
 #include <ncurses.h>
-#include <string>
 using std::pair;
 
 namespace Cobra {

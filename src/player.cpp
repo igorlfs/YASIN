@@ -54,14 +54,20 @@ void cobra::move() {
         case KEY_LEFT: newHead = {oldHead.first, oldHead.second - 1}; break;
         case KEY_RIGHT: newHead = {oldHead.first, oldHead.second + 1}; break;
     }
-    if (boundaryCheck(newHead.first, newHead.second)) gameOver();
-    pair<int, int> tail = this->locations.back();
-    mvwaddch(this->currentWin, tail.first, tail.second, ' ');
-    this->locations.pop_back();
-}
-void cobra::display() {
-    for (auto i : this->locations)
-        mvwaddch(this->currentWin, i.first, i.second, this->character);
+    if (boundaryCheck(newHead.first, newHead.second)) gameOver("YOU LOST!");
+    if (newHead != this->food) { // "Eat" by not removing tail
+        mvwaddch(this->currentWin, this->locations.back().first,
+                 this->locations.back().second, BLANK);
+        this->locations.pop_back();
+    } // You need to remove the tail before checking if the head is inside
+    if (isInsideCobra(newHead)) gameOver("YOU LOST!");
+    this->locations.push_front(newHead);
+    const int size = (this->yMax - 2) * (this->xMax - 2);
+    if (newHead == this->food && this->locations.size() != size)
+        this->spawnFood();
+    if (this->locations.size() == size) this->gameOver("YOU WON!");
+    mvwaddch(this->currentWin, this->locations.front().first,
+             this->locations.front().second, this->character);
 }
 void cobra::spawnFood() {
     std::vector<pair<int, int>> positions;
