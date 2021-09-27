@@ -2,9 +2,15 @@
 #define PLAYER_H
 #include <list>
 #include <ncurses.h>
+#include <string>
 using std::pair;
 
 namespace Cobra {
+
+enum directions { VERTICAL, HORIZONTAL };
+
+static constexpr int BLANK{(int)' '};
+
 class cobra {
   public:
     cobra(WINDOW *win, const int &c);
@@ -13,7 +19,6 @@ class cobra {
     void updateDirection(const int &dir);
 
   private:
-    static constexpr int initialSize{3};
     static constexpr int foodChar{(int)'$'};
 
     WINDOW *currentWin;

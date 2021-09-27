@@ -26,9 +26,9 @@ cobra::cobra(WINDOW *win, const int &c) : currentWin(win), character(c) {
 }
 void cobra::spawnCobra() {
     clear();
-    for (int i = 0; i < this->initialSize; ++i) {
-        this->locations.push_front({1, i - 1 + this->initialSize});
-        mvwaddch(this->currentWin, 1, i - 1 + this->initialSize,
+    for (int i = 0; i < (this->xMax - 2) / 4 + 1; ++i) {
+        this->locations.push_front({1, i + (this->xMax - 2) / 4});
+        mvwaddch(this->currentWin, 1, i + (this->xMax - 2) / 4,
                  this->character);
     }
 }

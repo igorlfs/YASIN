@@ -14,7 +14,7 @@ int main() {
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
-    WINDOW *gameWindow = newwin(18, 24, (yMax / 2) - 9, (xMax / 2) - 12);
+    WINDOW *gameWindow = newwin(6, 6, (yMax / 2) - 2, (xMax / 2) - 2);
     box(gameWindow, 0, 0);
     refresh();
     wrefresh(gameWindow);
@@ -25,19 +25,18 @@ int main() {
 
     std::thread play([&p, &gameWindow]() {
         while (1) {
-            p->display();
             p->move();
             wrefresh(gameWindow);
-            std::this_thread::sleep_for(333ms);
+            std::this_thread::sleep_for(800ms);
         }
     });
     while (1) {
         int input = wgetch(gameWindow);
         p->updateDirection(input);
+        std::this_thread::sleep_for(800ms);
     }
 
     delwin(gameWindow);
-    getch();
     endwin();
     return 0;
 }
