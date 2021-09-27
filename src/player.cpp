@@ -1,13 +1,17 @@
 #include "player.hpp"
+#include <algorithm>
+#include <cstdlib>
+#include <curses.h>
 #include <map>
 #include <random>
+#include <vector>
 
 // https://stackoverflow.com/a/13445752
 namespace std {
-int randomNumber(int ceiling) {
+int randomNumber(const int &floor, const int &ceiling) {
     random_device dev;
     mt19937 rng(dev());
-    uniform_int_distribution<std::mt19937::result_type> dist(1, ceiling);
+    uniform_int_distribution<std::mt19937::result_type> dist(floor, ceiling);
     return dist(rng);
 }
 } // namespace std
