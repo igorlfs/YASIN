@@ -56,10 +56,16 @@ void cobra::display() {
         mvwaddch(this->currentWin, i.first, i.second, this->character);
 }
 void cobra::spawnFood() {
-    do
-        this->food = {std::randomNumber(this->yMax - 2),
-                      std::randomNumber(this->xMax - 2)};
-    while (isInsideCobra(this->food));
+    std::vector<pair<int, int>> positions;
+    for (int i = 1; i <= this->yMax - 2; ++i)
+        for (int j = 1; j <= this->xMax - 2; ++j) {
+            pair<int, int> pair = {i, j};
+            if (std::find(this->locations.begin(), this->locations.end(),
+                          pair) == this->locations.end())
+                positions.push_back(pair);
+        }
+    int index = std::randomNumber(0, positions.size() - 1);
+    this->food = positions[index];
     mvwaddch(this->currentWin, this->food.first, this->food.second,
              this->foodChar);
 }
