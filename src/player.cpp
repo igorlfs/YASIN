@@ -1,5 +1,4 @@
 #include "player.hpp"
-#include <algorithm>
 #include <cstdlib>
 #include <curses.h>
 #include <map>
@@ -74,9 +73,7 @@ void cobra::spawnFood() {
     for (int i = 1; i <= this->yMax - 2; ++i)
         for (int j = 1; j <= this->xMax - 2; ++j) {
             pair<int, int> pair = {i, j};
-            if (std::find(this->locations.begin(), this->locations.end(),
-                          pair) == this->locations.end())
-                positions.push_back(pair);
+            if (!isInsideCobra(pair)) positions.push_back(pair);
         }
     int index = std::randomNumber(0, positions.size() - 1);
     this->food = positions[index];
@@ -95,7 +92,7 @@ void cobra::gameOver(const std::string &message) const {
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
     int x = message.size() + 2; // Message + Borders
-    WINDOW *gameOver = newwin(3, x, (yMax / 2) - 2, (xMax / 2) - 6);
+    WINDOW *gameOver = newwin(3, x, (yMax / 2) - 2, (xMax - x) / 2);
     box(gameOver, 0, 0);
     refresh();
     mvwprintw(gameOver, 1, 1, message.c_str());
