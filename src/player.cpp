@@ -77,15 +77,17 @@ bool cobra::isInsideCobra(const pair<int, int> &cell) const {
 bool cobra::boundaryCheck(const int &m, const int &n) const {
     return (m <= 0 || m >= this->yMax - 1 || n <= 0 || n >= this->xMax - 1);
 }
-void cobra::gameOver() const {
+void cobra::gameOver(const std::string &message) const {
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
-    WINDOW *gameOver = newwin(3, 12, (yMax / 2) - 2, (xMax / 2) - 6);
+    int x = message.size() + 2; // Message + Borders
+    WINDOW *gameOver = newwin(3, x, (yMax / 2) - 2, (xMax / 2) - 6);
     box(gameOver, 0, 0);
     refresh();
-    mvwprintw(gameOver, 1, 1, "Game Over!");
+    mvwprintw(gameOver, 1, 1, message.c_str());
     wgetch(gameOver);
     delwin(gameOver);
+    delwin(this->currentWin);
     endwin();
     std::exit(1);
 }
