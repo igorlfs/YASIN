@@ -8,14 +8,9 @@ namespace Cobra {
 class cobra {
   public:
     cobra(WINDOW *win, const int &c);
-    void spawnCobra();
 
     void move();
     void updateDirection(const int &dir);
-    void display();
-
-    void spawnFood();
-    bool isInsideCobra(const pair<int, int> &cell) const;
 
   private:
     static constexpr int initialSize{4};
@@ -26,8 +21,16 @@ class cobra {
     std::list<pair<int, int>> locations;
     pair<int, int> food;
     char character;
-    int input{KEY_UP};
-    directions direction{VERTICAL};
+    int input;
+    directions direction{HORIZONTAL};
+
+    void spawnCobra();
+
+    void spawnFood();
+    bool isInsideCobra(const pair<int, int> &cell) const;
+
+    void gameOver(const std::string &message) const;
+    bool boundaryCheck(const int &m, const int &n) const;
 };
 } // namespace Cobra
 #endif
