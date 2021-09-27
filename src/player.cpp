@@ -25,8 +25,12 @@ cobra::cobra(WINDOW *win, const int &c) : currentWin(win), character(c) {
     this->spawnFood();
 }
 void cobra::spawnCobra() {
-    for (int i = 0; i < this->initialSize; ++i)
-        this->locations.push_back({this->yMax / 2 + i, this->xMax / 2});
+    clear();
+    for (int i = 0; i < this->initialSize; ++i) {
+        this->locations.push_front({1, i - 1 + this->initialSize});
+        mvwaddch(this->currentWin, 1, i - 1 + this->initialSize,
+                 this->character);
+    }
 }
 void cobra::updateDirection(const int &input) {
     std::map<int, directions> invalidMoves = {{KEY_UP, VERTICAL},
