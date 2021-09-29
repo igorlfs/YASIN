@@ -10,7 +10,7 @@ namespace std {
 int randomNumber(const int &floor, const int &ceiling) {
     random_device dev;
     mt19937 rng(dev());
-    uniform_int_distribution<std::mt19937::result_type> dist(floor, ceiling);
+    uniform_int_distribution<mt19937::result_type> dist(floor, ceiling);
     return dist(rng);
 }
 } // namespace std
@@ -45,15 +45,7 @@ void cobra::updateDirection(const int &input) {
     }
 }
 void cobra::move() {
-    pair<int, int> oldHead = this->locations.front();
-    pair<int, int> newHead;
-    switch (this->input) {
-        case KEY_UP: newHead = {oldHead.first - 1, oldHead.second}; break;
-        case KEY_DOWN: newHead = {oldHead.first + 1, oldHead.second}; break;
-        case KEY_LEFT: newHead = {oldHead.first, oldHead.second - 1}; break;
-        case KEY_RIGHT: newHead = {oldHead.first, oldHead.second + 1}; break;
-    }
-    if (boundaryCheck(newHead.first, newHead.second)) gameOver("YOU LOST!");
+    pair<int, int> newHead = moveHelper();
     if (newHead != this->food) { // "Eat" by not removing tail
         mvwaddch(this->currentWin, this->locations.back().first,
                  this->locations.back().second, BLANK);
@@ -67,6 +59,17 @@ void cobra::move() {
     if (this->locations.size() == size) this->gameOver("YOU WON!");
     mvwaddch(this->currentWin, this->locations.front().first,
              this->locations.front().second, this->character);
+}
+std::pair<int, int> cobra::moveHelper() const {
+    pair<int, int> head = this->locations.front();
+    switch (this->input) {
+        case KEY_UP: head = {head.first - 1, head.second}; break;
+        case KEY_DOWN: head = {head.first + 1, head.second}; break;
+        case KEY_LEFT: head = {head.first, head.second - 1}; break;
+        case KEY_RIGHT: head = {head.first, head.second + 1}; break;
+    }
+    if (boundaryCheck(head.first, head.second)) gameOver("YOU LOST!");
+    return head;
 }
 void cobra::spawnFood() {
     std::vector<pair<int, int>> positions;

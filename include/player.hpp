@@ -34,8 +34,12 @@ class cobra {
     void spawnFood();
     bool isInsideCobra(const pair<int, int> &cell) const;
 
-    void gameOver(const std::string &message) const;
+    // Changes head && checks bondaries
+    pair<int, int> moveHelper() const;
     bool boundaryCheck(const int &m, const int &n) const;
+
+    // Create a window and print a game over message
+    void gameOver(const std::string &message) const;
 };
 } // namespace Cobra
 #endif
