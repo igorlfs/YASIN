@@ -95,13 +95,11 @@ void cobra::gameOver(const std::string &message) const {
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
     int x = message.size() + 2; // Message + Borders
-    WINDOW *gameOver = newwin(3, x, (yMax / 2) - 2, (xMax - x) / 2);
+    WINDOW *gameOver = newwin(3, x, (yMax - 3) / 2, (xMax - x) / 2);
     box(gameOver, 0, 0);
-    refresh();
     mvwprintw(gameOver, 1, 1, message.c_str());
     wgetch(gameOver);
     delwin(gameOver);
-    delwin(this->currentWin);
     endwin();
     std::exit(1);
 }
