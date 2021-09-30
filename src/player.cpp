@@ -1,5 +1,4 @@
 #include "player.hpp"
-#include <cstdlib>
 #include <curses.h>
 #include <map>
 #include <random>
@@ -17,18 +16,15 @@ int randomNumber(const int &floor, const int &ceiling) {
 
 using namespace Cobra;
 
-cobra::cobra(WINDOW *win, const int &c) : currentWin(win), character(c) {
-    getmaxyx(this->currentWin, this->yMax, this->xMax);
-    keypad(this->currentWin, true);
+cobra::cobra(WINDOW *win, const int &c) : board(win), character(c) {
     this->spawnCobra();
     this->spawnFood();
 }
 void cobra::spawnCobra() {
     clear();
-    for (int i = 0; i < (this->xMax - 2) / 4 + 1; ++i) {
-        this->locations.push_front({1, i + (this->xMax - 2) / 4});
-        mvwaddch(this->currentWin, 1, i + (this->xMax - 2) / 4,
-                 this->character);
+    for (int i = 0; i < this->board.getX() / 4 + 1; ++i) {
+        this->locations.push_front({1, i + this->board.getX() / 4});
+        board.print(1, i + this->board.getX() / 4, this->character);
     }
 }
 void cobra::updateDirection(const int &input) {
@@ -46,13 +42,12 @@ void cobra::updateDirection(const int &input) {
 }
 void cobra::move() {
     pair<int, int> newHead = this->changeHead();
-    if (boundaryCheck(newHead.first, newHead.second)) {
+    if (this->board.boundaryCheck(newHead)) {
         this->gameOver("YOU LOST!");
         return;
     } // "Eat" by not removing tail
     if (newHead != this->food) {
-        mvwaddch(this->currentWin, this->locations.back().first,
-                 this->locations.back().second, BLANK);
+        board.print(this->locations.back(), BLANK);
         this->locations.pop_back();
     } // You need to remove the tail before checking if the head is inside
     if (isInsideCobra(newHead)) {
@@ -60,15 +55,13 @@ void cobra::move() {
         return;
     }
     this->locations.push_front(newHead);
-    const int size = (this->yMax - 2) * (this->xMax - 2);
-    if (newHead == this->food && this->locations.size() != size)
+    if (newHead == this->food && this->locations.size() != board.getSize())
         this->spawnFood();
-    if (this->locations.size() == size) {
+    if (this->locations.size() == board.getSize()) {
         this->gameOver("YOU WON!");
         return;
     }
-    mvwaddch(this->currentWin, this->locations.front().first,
-             this->locations.front().second, this->character);
+    board.print(this->locations.front(), this->character);
 }
 std::pair<int, int> cobra::changeHead() {
     pair<int, int> head = this->locations.front();
@@ -82,23 +75,19 @@ std::pair<int, int> cobra::changeHead() {
 }
 void cobra::spawnFood() {
     std::vector<pair<int, int>> positions;
-    for (int i = 1; i <= this->yMax - 2; ++i)
-        for (int j = 1; j <= this->xMax - 2; ++j) {
+    for (int i = 1; i <= this->board.getY(); ++i)
+        for (int j = 1; j <= this->board.getX(); ++j) {
             pair<int, int> pair = {i, j};
             if (!isInsideCobra(pair)) positions.push_back(pair);
         }
     int index = std::randomNumber(0, positions.size() - 1);
     this->food = positions[index];
-    mvwaddch(this->currentWin, this->food.first, this->food.second,
-             this->foodChar);
+    this->board.print(this->food, this->foodChar);
 }
 bool cobra::isInsideCobra(const pair<int, int> &cell) const {
     for (auto i : this->locations)
         if (i == cell) return true;
     return false;
-}
-bool cobra::boundaryCheck(const int &m, const int &n) const {
-    return (m <= 0 || m >= this->yMax - 1 || n <= 0 || n >= this->xMax - 1);
 }
 void cobra::gameOver(const std::string &message) {
     int yMax, xMax;
