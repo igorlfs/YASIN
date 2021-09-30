@@ -17,11 +17,13 @@ class cobra {
 
     void move();
     void updateDirection(const int &dir);
+    bool isOver() { return this->isGameOver; }
 
   private:
     static constexpr int foodChar{(int)'$'};
 
     WINDOW *currentWin;
+    bool isGameOver{false};
     int yMax, xMax;
     std::list<pair<int, int>> locations;
     pair<int, int> food;
@@ -34,12 +36,11 @@ class cobra {
     void spawnFood();
     bool isInsideCobra(const pair<int, int> &cell) const;
 
-    // Changes head && checks bondaries
-    pair<int, int> moveHelper() const;
+    pair<int, int> changeHead();
     bool boundaryCheck(const int &m, const int &n) const;
 
     // Create a window and print a game over message
-    void gameOver(const std::string &message) const;
+    void gameOver(const std::string &message);
 };
 } // namespace Cobra
 #endif

@@ -45,22 +45,32 @@ void cobra::updateDirection(const int &input) {
     }
 }
 void cobra::move() {
-    pair<int, int> newHead = moveHelper();
-    if (newHead != this->food) { // "Eat" by not removing tail
+    pair<int, int> newHead = this->changeHead();
+    if (boundaryCheck(newHead.first, newHead.second)) {
+        this->gameOver("YOU LOST!");
+        return;
+    } // "Eat" by not removing tail
+    if (newHead != this->food) {
         mvwaddch(this->currentWin, this->locations.back().first,
                  this->locations.back().second, BLANK);
         this->locations.pop_back();
     } // You need to remove the tail before checking if the head is inside
-    if (isInsideCobra(newHead)) gameOver("YOU LOST!");
+    if (isInsideCobra(newHead)) {
+        this->gameOver("YOU LOST!");
+        return;
+    }
     this->locations.push_front(newHead);
     const int size = (this->yMax - 2) * (this->xMax - 2);
     if (newHead == this->food && this->locations.size() != size)
         this->spawnFood();
-    if (this->locations.size() == size) this->gameOver("YOU WON!");
+    if (this->locations.size() == size) {
+        this->gameOver("YOU WON!");
+        return;
+    }
     mvwaddch(this->currentWin, this->locations.front().first,
              this->locations.front().second, this->character);
 }
-std::pair<int, int> cobra::moveHelper() const {
+std::pair<int, int> cobra::changeHead() {
     pair<int, int> head = this->locations.front();
     switch (this->input) {
         case KEY_UP: head = {head.first - 1, head.second}; break;
@@ -68,7 +78,6 @@ std::pair<int, int> cobra::moveHelper() const {
         case KEY_LEFT: head = {head.first, head.second - 1}; break;
         case KEY_RIGHT: head = {head.first, head.second + 1}; break;
     }
-    if (boundaryCheck(head.first, head.second)) gameOver("YOU LOST!");
     return head;
 }
 void cobra::spawnFood() {
@@ -91,7 +100,7 @@ bool cobra::isInsideCobra(const pair<int, int> &cell) const {
 bool cobra::boundaryCheck(const int &m, const int &n) const {
     return (m <= 0 || m >= this->yMax - 1 || n <= 0 || n >= this->xMax - 1);
 }
-void cobra::gameOver(const std::string &message) const {
+void cobra::gameOver(const std::string &message) {
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
     int x = message.size() + 2; // Message + Borders
@@ -100,6 +109,5 @@ void cobra::gameOver(const std::string &message) const {
     mvwprintw(gameOver, 1, 1, message.c_str());
     wgetch(gameOver);
     delwin(gameOver);
-    endwin();
-    std::exit(1);
+    this->isGameOver = true;
 }
