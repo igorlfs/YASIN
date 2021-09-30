@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once
+#include "board.hpp"
 #include <list>
 #include <ncurses.h>
 #include <string>
