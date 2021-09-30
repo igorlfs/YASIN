@@ -1,6 +1,6 @@
-#include "player.hpp"
+#include "game.hpp"
 
-// BUG: borde's top left corner not drawing properly
+// BUG: border's top left corner not drawing properly
 
 int main() {
     initscr();

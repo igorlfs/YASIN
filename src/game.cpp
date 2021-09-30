@@ -1,4 +1,4 @@
-#include "player.hpp"
+#include "game.hpp"
 #include <map>
 using namespace game;
 void Game::parseInput() {
