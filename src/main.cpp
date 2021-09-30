@@ -1,41 +1,26 @@
 #include "player.hpp"
-#include <iostream>
-#include <thread>
 
-using namespace std::chrono_literals;
+// BUG: borde's top left corner not drawing properly
 
 int main() {
     initscr();
     cbreak();
     noecho();
     curs_set(0); // Hide cursor
-
-    if (!has_colors()) return 1; // use assert?
+    refresh();
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
     WINDOW *gameWindow = newwin(6, 6, (yMax / 2) - 2, (xMax / 2) - 2);
-    box(gameWindow, 0, 0);
-    refresh();
-    wrefresh(gameWindow);
-    /* mvprintw((yMax / 2) + 9, (xMax / 2) - 12, "Score:"); */
-
-    std::unique_ptr<Cobra::cobra> p =
-        std::make_unique<Cobra::cobra>(gameWindow, (int)'@');
-
-    std::thread play([&p, &gameWindow]() {
-        while (1) {
-            p->move();
-            wrefresh(gameWindow);
-            std::this_thread::sleep_for(800ms);
-        }
-    });
-    while (1) {
-        int input = wgetch(gameWindow);
-        p->updateDirection(input);
-        std::this_thread::sleep_for(800ms);
+    game::Game snakeGame(gameWindow);
+    halfdelay(5);
+    while (!snakeGame.isOver()) {
+        snakeGame.print();
+        snakeGame.parseInput();
+        snakeGame.move();
     }
 
+    wgetch(gameWindow);
     delwin(gameWindow);
     endwin();
     return 0;

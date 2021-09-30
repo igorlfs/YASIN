@@ -1,46 +1,34 @@
 #pragma once
-#include "board.hpp"
-#include <list>
-#include <ncurses.h>
-#include <string>
-using std::pair;
 
-namespace Cobra {
+#include "board.hpp"
+#include "food.hpp"
+#include "snake.hpp"
+#include <string>
+
+namespace game {
 
 enum directions { VERTICAL, HORIZONTAL };
 
 static constexpr int BLANK{(int)' '};
 
-class cobra {
+class Game {
   public:
-    cobra(WINDOW *win, const int &c);
+    Game(WINDOW *win) : board(win), snake(board), food(board, snake) {}
 
     void move();
-    void updateDirection(const int &dir);
+    void print();
+    void parseInput();
     bool isOver() { return this->isGameOver; }
 
   private:
-    static constexpr int foodChar{(int)'$'};
-
-    WINDOW *currentWin;
     bool isGameOver{false};
-    int yMax, xMax;
-    std::list<pair<int, int>> locations;
-    pair<int, int> food;
-    char character;
+    board::Board board;
+    drawable::Snake snake;
+    drawable::Food food;
     int input{KEY_RIGHT};
     directions direction{HORIZONTAL};
-
-    void spawnCobra();
-
-    void spawnFood();
-    bool isInsideCobra(const pair<int, int> &cell) const;
-
-    pair<int, int> changeHead();
-    bool boundaryCheck(const int &m, const int &n) const;
 
     // Create a window and print a game over message
     void gameOver(const std::string &message);
 };
-} // namespace Cobra
-#endif
+} // namespace game

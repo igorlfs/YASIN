@@ -7,9 +7,9 @@ Board::Board(WINDOW *win)
     keypad(this->gameWindow, true);
     leaveok(this->gameWindow, true);
 }
-bool Board::boundaryCheck(const std::pair<int, int> &p) const {
-    return (p.first <= 0 || p.first >= this->yMax - 1 || p.second <= 0 ||
-            p.second >= this->xMax - 1);
+bool Board::isOutOfBounds(const std::pair<int, int> &p) const {
+    return (p.first <= 0 || p.first >= this->yMax || p.second <= 0 ||
+            p.second >= this->xMax);
 }
 void Board::print(const unsigned &y, const unsigned &x, const chtype &c) const {
     mvwaddch(this->gameWindow, y, x, c);
