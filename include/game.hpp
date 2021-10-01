@@ -13,12 +13,12 @@ static constexpr int BLANK{(int)' '};
 
 class Game {
   public:
-    Game(WINDOW *win) : board(win), snake(board), food(board, snake) {}
+    Game(WINDOW *win);
 
-    void move();
-    void print();
-    void parseInput();
     bool isOver() { return this->isGameOver; }
+    void processInput();
+    void update();
+    void print();
 
   private:
     bool isGameOver{false};

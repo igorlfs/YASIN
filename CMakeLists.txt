@@ -16,6 +16,6 @@ project(main)
 # https://stackoverflow.com/a/47045466
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 
-add_executable(main ${SOURCE}/main.cpp  ${SOURCE}/player.cpp ${SOURCE}/board.cpp ${SOURCE}/drawable/food.cpp ${SOURCE}/drawable/snake.cpp)
+add_executable(main ${SOURCE}/main.cpp  ${SOURCE}/game.cpp ${SOURCE}/board.cpp ${SOURCE}/drawable/food.cpp ${SOURCE}/drawable/snake.cpp)
 
 target_include_directories(main $ENV{INCLUDE} PUBLIC ${INCLUDE} ${INCLUDE}/drawable)

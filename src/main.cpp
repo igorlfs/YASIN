@@ -15,9 +15,9 @@ int main() {
     game::Game snakeGame(gameWindow);
     halfdelay(5);
     while (!snakeGame.isOver()) {
+        snakeGame.processInput();
+        snakeGame.update();
         snakeGame.print();
-        snakeGame.parseInput();
-        snakeGame.move();
     }
 
     wgetch(gameWindow);

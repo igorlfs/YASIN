@@ -6,9 +6,11 @@
 namespace drawable {
 class Food : public Drawable {
   public:
+    /// Constructors
     Food(board::Board &board, const Snake &snake);
+
+    /// Operations
     void spawn(board::Board &board, const Snake &snake);
-    void print(const board::Board &board) const override;
 
   private:
     static constexpr char ch = '$';

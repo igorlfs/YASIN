@@ -1,14 +1,9 @@
 #include "snake.hpp"
 using namespace drawable;
 Snake::Snake(board::Board &board) {
-    setChar(chHead);
+    setChar(ch);
     setHead({1, board.getX() / 2});
     for (int i = 1; i < board.getX() / 2; ++i) this->body.push_front({1, i});
-}
-bool Snake::isInBody(const std::pair<int, int> &p) const {
-    for (auto i : this->body)
-        if (p == i) return true;
-    return false;
 }
 std::pair<int, int> Snake::changeHead(const int &input) {
     setOldHead(getHead());
@@ -28,7 +23,8 @@ void Snake::removeTail() {
     this->oldTail = this->body.back();
     this->body.pop_back();
 }
-void Snake::print(const board::Board &board) const {
-    board.print(this->getHead(), this->getChar());
-    for (auto i : this->body) board.print(i, this->chBody);
+bool Snake::isInBody(const std::pair<int, int> &p) const {
+    for (auto i : this->body)
+        if (p == i) return true;
+    return false;
 }

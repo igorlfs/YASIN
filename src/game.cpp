@@ -1,7 +1,10 @@
 #include "game.hpp"
 #include <map>
 using namespace game;
-void Game::parseInput() {
+Game::Game(WINDOW *win) : board(win), snake(board), food(board, snake) {
+    for (auto i : this->snake.getBody()) board.print(i, this->snake.getChar());
+}
+void Game::processInput() {
     int input = wgetch(this->board.getWin());
     std::map<int, directions> invalidMoves = {{KEY_UP, VERTICAL},
                                               {KEY_DOWN, VERTICAL},
@@ -15,7 +18,7 @@ void Game::parseInput() {
         }
     }
 }
-void Game::move() {
+void Game::update() {
     std::pair<int, int> newHead = this->snake.changeHead(this->input);
     if (this->board.isOutOfBounds(newHead)) this->gameOver("DEFEAT!");
     // "Eat" by not removing tail
@@ -23,10 +26,16 @@ void Game::move() {
     // You need to remove the tail before checking if the head is inside
     if (this->snake.isInBody(newHead)) this->gameOver("DEFEAT!");
     this->snake.insertHead(newHead);
-    int snakeSize = this->snake.getBody().size() + 1;
+    int snakeSize = this->snake.getBody().size() + 1; // size + head
     if (newHead == this->food.getHead() && snakeSize != this->board.getSize())
         this->food.spawn(this->board, this->snake);
     if (snakeSize == this->board.getSize()) this->gameOver("VICTORY!");
+}
+void Game::print() {
+    this->board.print(this->snake.getOldTail(), BLANK);
+    this->board.print(this->food.getHead(), this->food.getChar());
+    this->board.print(this->snake.getHead(), this->snake.getChar());
+    wrefresh(this->board.getWin());
 }
 void Game::gameOver(const std::string &message) {
     int yMax, xMax;
@@ -38,10 +47,4 @@ void Game::gameOver(const std::string &message) {
     wgetch(gameOver);
     delwin(gameOver);
     this->isGameOver = true;
-}
-void Game::print() {
-    this->board.print(this->snake.getTail(), BLANK);
-    this->food.print(this->board);
-    this->snake.print(this->board);
-    wrefresh(this->board.getWin());
 }
