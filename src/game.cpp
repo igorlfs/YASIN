@@ -44,6 +44,7 @@ void Game::gameOver(const std::string &message) {
     getmaxyx(stdscr, yMax, xMax);
     int x = message.size() + 2; // Message + Borders
     WINDOW *gameOver = newwin(3, x, (yMax - 3) / 2, (xMax - x) / 2);
+    nocbreak(); // Disables half-delay mode
     box(gameOver, 0, 0);
     mvwprintw(gameOver, 1, 1, message.c_str());
     wgetch(gameOver);

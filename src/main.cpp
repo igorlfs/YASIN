@@ -28,7 +28,6 @@ int main() {
         snakeGame.print();
     }
 
-    wgetch(gameWindow);
     delwin(gameWindow);
     endwin();
     return 0;
