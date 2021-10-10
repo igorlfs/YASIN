@@ -11,6 +11,9 @@ bool Board::isOutOfBounds(const std::pair<int, int> &p) const {
     return (p.first <= 0 || p.first >= this->yMax || p.second <= 0 ||
             p.second >= this->xMax);
 }
-void Board::print(const std::pair<int, int> &p, const chtype &c) const {
+void Board::print(const std::pair<int, int> &p, const chtype &c,
+                  const int &n) const {
+    wattron(this->gameWindow, COLOR_PAIR(n));
     mvwaddch(this->gameWindow, p.first, p.second, c);
+    wattroff(this->gameWindow, COLOR_PAIR(n));
 }

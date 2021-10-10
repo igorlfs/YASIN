@@ -1,13 +1,21 @@
 #include "game.hpp"
 
-// BUG: border's top left corner not drawing properly
-
 int main() {
     initscr();
     cbreak();
     noecho();
     curs_set(0); // Hide cursor
     refresh();
+
+    if (!has_colors()) {
+        printw("No color support");
+        getch();
+        exit(1);
+    }
+
+    start_color();
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Snake color
+    init_pair(2, COLOR_RED, COLOR_BLACK);    // Food color
 
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
