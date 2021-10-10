@@ -1,21 +1,15 @@
 #include "game.hpp"
 
+void checkColor();
+
 int main() {
     initscr();
     cbreak();
     noecho();
     curs_set(0); // Hide cursor
     refresh();
-
-    if (!has_colors()) {
-        printw("No color support");
-        getch();
-        exit(1);
-    }
-
+    checkColor();
     start_color();
-    init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Snake color
-    init_pair(2, COLOR_RED, COLOR_BLACK);    // Food color
 
     static constexpr int y = 6, x = 6;
     int yMax, xMax;
@@ -32,4 +26,12 @@ int main() {
     delwin(gameWindow);
     endwin();
     return 0;
+}
+
+void checkColor() {
+    if (!has_colors()) {
+        printw("No color support");
+        getch();
+        exit(1);
+    }
 }

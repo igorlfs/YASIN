@@ -17,8 +17,7 @@ class Board {
 
     /// Operations
     bool isOutOfBounds(const std::pair<int, int> &p) const;
-    void print(const std::pair<int, int> &p, const chtype &c,
-               const int &n) const;
+    void print(const std::pair<int, int> &p, const chtype &c) const;
 
   private:
     WINDOW *gameWindow;
