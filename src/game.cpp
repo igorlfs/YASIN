@@ -5,6 +5,7 @@ using namespace game;
 Game::Game(WINDOW *win) : board(win), snake(board), food(board, snake) {
     for (auto i : this->snake.getBody())
         board.print(i, this->snake.getChar(), 1);
+    this->board.print(this->snake.getHead(), this->snake.getChar(), 1);
 }
 void Game::processInput() {
     int input = wgetch(this->board.getWin());
