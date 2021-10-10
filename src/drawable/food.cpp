@@ -14,7 +14,8 @@ using std::pair;
 
 using namespace drawable;
 Food::Food(board::Board &board, const Snake &snake) {
-    this->setChar(ch);
+    init_pair(2, COLOR_RED, COLOR_BLACK);
+    this->setChar(ch, 2);
     this->spawn(board, snake);
 }
 void Food::spawn(board::Board &board, const Snake &snake) {

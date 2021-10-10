@@ -17,7 +17,7 @@ int main() {
     init_pair(1, COLOR_YELLOW, COLOR_BLACK); // Snake color
     init_pair(2, COLOR_RED, COLOR_BLACK);    // Food color
 
-    int y = 6, x = 6;
+    static constexpr int y = 6, x = 6;
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
     WINDOW *gameWindow = newwin(y, x, (yMax - y) / 2, (xMax - x) / 2);

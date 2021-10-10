@@ -6,14 +6,16 @@
 namespace drawable {
 class Drawable {
   public:
-    char getChar() const { return this->character; }
+    chtype getChar() const { return this->character; }
     std::pair<int, int> getHead() const { return this->head; }
 
-    void setChar(const char &c) { this->character = c; }
+    void setChar(const char &c, const int &n) {
+        this->character = c | A_BOLD | COLOR_PAIR(n);
+    }
     void setHead(const std::pair<int, int> &p) { this->head = p; }
 
   private:
     std::pair<int, int> head;
-    char character;
+    chtype character;
 };
 } // namespace drawable

@@ -1,7 +1,8 @@
 #include "snake.hpp"
 using namespace drawable;
 Snake::Snake(board::Board &board) {
-    setChar(ch);
+    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+    setChar(ch, 1);
     setHead({1, board.getX() / 2});
     for (int i = 1; i < board.getX() / 2; ++i) this->body.push_front({1, i});
 }

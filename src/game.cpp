@@ -3,9 +3,9 @@
 #include <map>
 using namespace game;
 Game::Game(WINDOW *win) : board(win), snake(board), food(board, snake) {
-    for (auto i : this->snake.getBody())
-        board.print(i, this->snake.getChar(), 1);
-    this->board.print(this->snake.getHead(), this->snake.getChar(), 1);
+    for (auto i : this->snake.getBody()) board.print(i, this->snake.getChar());
+    this->board.print(this->snake.getHead(), this->snake.getChar());
+    this->board.print(this->food.getHead(), this->food.getChar());
 }
 void Game::processInput() {
     int input = wgetch(this->board.getWin());
@@ -35,9 +35,9 @@ void Game::update() {
     if (snakeSize == this->board.getSize()) this->gameOver("VICTORY!");
 }
 void Game::print() {
-    this->board.print(this->snake.getOldTail(), BLANK, 0);
-    this->board.print(this->food.getHead(), this->food.getChar(), 2);
-    this->board.print(this->snake.getHead(), this->snake.getChar(), 1);
+    this->board.print(this->snake.getOldTail(), BLANK);
+    this->board.print(this->food.getHead(), this->food.getChar());
+    this->board.print(this->snake.getHead(), this->snake.getChar());
     wrefresh(this->board.getWin());
 }
 void Game::gameOver(const std::string &message) {
