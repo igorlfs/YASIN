@@ -1,0 +1,72 @@
+[
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-std=c++17",
+            "-g",
+            "-fstandalone-debug",
+            "-Iinclude/drawable",
+            "-o",
+            "build/snake.o",
+            "src/snake.cpp"
+        ],
+        "directory": "/home/user/code/games/snake",
+        "file": "src/snake.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-std=c++17",
+            "-g",
+            "-fstandalone-debug",
+            "-Iinclude",
+            "-o",
+            "build/board.o",
+            "src/board.cpp"
+        ],
+        "directory": "/home/user/code/games/snake",
+        "file": "src/board.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-std=c++17",
+            "-g",
+            "-fstandalone-debug",
+            "-Iinclude/drawable",
+            "-Iinclude",
+            "-o",
+            "build/main.o",
+            "src/main.cpp"
+        ],
+        "directory": "/home/user/code/games/snake",
+        "file": "src/main.cpp"
+    },
+    {
+        "arguments": [
+            "clang++",
+            "-c",
+            "-Wall",
+            "-Wextra",
+            "-std=c++17",
+            "-g",
+            "-fstandalone-debug",
+            "-Iinclude/drawable",
+            "-Iinclude",
+            "-o",
+            "build/game.o",
+            "src/game.cpp"
+        ],
+        "directory": "/home/user/code/games/snake",
+        "file": "src/game.cpp"
+    }
+]
