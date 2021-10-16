@@ -7,7 +7,7 @@ namespace drawable {
 class Snake : public Drawable {
   public:
     /// Constructors
-    Snake(board::Board &board);
+    Snake();
 
     /// Getters
     std::pair<int, int> getOldTail() { return this->oldTail; }
@@ -15,6 +15,7 @@ class Snake : public Drawable {
 
     /// Setters
     void setOldHead(const std::pair<int, int> &p) { this->oldHead = p; }
+    void setBody(const std::list<std::pair<int, int>> &b) { this->body = b; }
 
     /// Modifiers
     std::pair<int, int> changeHead(const int &input);

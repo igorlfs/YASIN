@@ -1,16 +1,14 @@
 #pragma once
 
 #include "drawable.hpp"
-#include "snake.hpp"
 
 namespace drawable {
 class Food : public Drawable {
   public:
-    /// Constructors
-    Food(board::Board &board, const Snake &snake);
-
-    /// Operations
-    void spawn(board::Board &board, const Snake &snake);
+    Food() {
+        init_pair(2, COLOR_RED, COLOR_BLACK);
+        this->setChar(ch, 2);
+    };
 
   private:
     static constexpr char ch = '$';

@@ -1,10 +1,9 @@
 #include "snake.hpp"
+#include <cassert>
 using namespace drawable;
-Snake::Snake(board::Board &board) {
+Snake::Snake() {
     init_pair(1, COLOR_YELLOW, COLOR_BLACK);
-    setChar(ch, 1);
-    setHead({1, board.getX() / 2});
-    for (int i = 1; i < board.getX() / 2; ++i) this->body.push_front({1, i});
+    this->setChar(ch, 1);
 }
 std::pair<int, int> Snake::changeHead(const int &input) {
     setOldHead(getHead());
@@ -21,6 +20,7 @@ void Snake::insertHead(const std::pair<int, int> &newHead) {
     this->body.push_front(this->oldHead);
 }
 void Snake::removeTail() {
+    assert(!this->body.empty());
     this->oldTail = this->body.back();
     this->body.pop_back();
 }

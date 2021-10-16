@@ -1,6 +1,6 @@
 #pragma once
 
-#include "board.hpp"
+#include <ncurses.h>
 #include <utility>
 
 namespace drawable {

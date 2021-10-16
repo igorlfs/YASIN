@@ -1,10 +1,23 @@
 #include "game.hpp"
 
 #include <map>
+#include <random>
+
+// https://stackoverflow.com/a/13445752
+int randomNumber(const int &f, const int &c) {
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(f, c);
+    return dist(rng);
+}
+
 using namespace game;
-Game::Game(WINDOW *win) : board(win), snake(board), food(board, snake) {
-    for (auto i : this->snake.getBody()) board.print(i, this->snake.getChar());
+Game::Game(WINDOW *win) : board(win), snake(), food() {
+    this->spawnSnake();
+    this->spawnFood();
     this->board.print(this->snake.getHead(), this->snake.getChar());
+    for (std::pair i : this->snake.getBody())
+        board.print(i, this->snake.getChar());
     this->board.print(this->food.getHead(), this->food.getChar());
 }
 void Game::processInput() {
@@ -29,9 +42,9 @@ void Game::update() {
     // You need to remove the tail before checking if the head is inside
     if (this->snake.isInBody(newHead)) this->gameOver("DEFEAT!");
     this->snake.insertHead(newHead);
-    int snakeSize = this->snake.getBody().size() + 1; // size + head
+    int snakeSize = this->snake.getBody().size() + 1; // size body + head
     if (newHead == this->food.getHead() && snakeSize != this->board.getSize())
-        this->food.spawn(this->board, this->snake);
+        this->spawnFood();
     if (snakeSize == this->board.getSize()) this->gameOver("VICTORY!");
 }
 void Game::print() {
@@ -39,6 +52,25 @@ void Game::print() {
     this->board.print(this->food.getHead(), this->food.getChar());
     this->board.print(this->snake.getHead(), this->snake.getChar());
     wrefresh(this->board.getWin());
+}
+void Game::spawnSnake() {
+    constexpr int y = 1;
+    const int x = this->board.getX() / 2;
+    this->snake.setHead({y, x});
+    std::list<std::pair<int, int>> body;
+    for (int i = 1; i < x; ++i) body.push_front({y, i});
+    this->snake.setBody(body);
+}
+void Game::spawnFood() {
+    std::vector<std::pair<int, int>> validPositions;
+    for (int i = 1; i <= this->board.getY(); ++i)
+        for (int j = 1; j <= this->board.getX(); ++j) {
+            std::pair<int, int> candidate = {i, j};
+            if (!snake.isInBody(candidate) && candidate != snake.getHead())
+                validPositions.push_back(candidate);
+        }
+    int index = randomNumber(0, validPositions.size() - 1);
+    this->food.setHead(validPositions[index]);
 }
 void Game::gameOver(const std::string &message) {
     int yMax, xMax;
