@@ -10,6 +10,7 @@ int main() {
     refresh();
     checkColor();
     start_color();
+    use_default_colors();
 
     static constexpr int y = 6, x = 6;
     int yMax, xMax;
