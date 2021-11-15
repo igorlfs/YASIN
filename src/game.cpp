@@ -20,6 +20,8 @@ Game::Game(WINDOW *win) : board(win), snake(), food() {
         board.print(i, this->snake.getChar());
     this->board.print(this->food.getHead(), this->food.getChar());
 }
+
+/// @brief handle user input and update members accordingly
 void Game::processInput() {
     int input = wgetch(this->board.getWin());
     if (input == PAUSE) input = this->pause();
@@ -33,6 +35,8 @@ void Game::processInput() {
         }
     }
 }
+
+/// @brief process input and change game accordingly
 void Game::update() {
     std::pair<int, int> newHead = this->snake.changeHead(this->input);
     if (this->board.isOutOfBounds(newHead)) this->gameOver("DEFEAT!");
@@ -46,6 +50,8 @@ void Game::update() {
         this->spawnFood();
     if (snakeSize == this->board.getSize()) this->gameOver("VICTORY!");
 }
+
+/// @brief print to stdscr changes made in the board
 void Game::print() {
     this->board.print(this->snake.getOldTail(), BLANK);
     this->board.print(this->food.getHead(), this->food.getChar());
