@@ -23,14 +23,13 @@ class Game {
 
   private:
     bool isGameOver{false};
+
     board::Board board;
     drawable::Snake snake;
     drawable::Food food;
     int input{KEY_RIGHT};
     direction dir{HOR};
 
-    // Set drawables according to board's dimensions
-    void spawnSnake();
     void spawnFood();
 
     int pause();

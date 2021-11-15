@@ -12,8 +12,9 @@ int randomNumber(const int &f, const int &c) {
 }
 
 using namespace game;
-Game::Game(WINDOW *win) : board(win), snake(), food() {
-    this->spawnSnake();
+
+/// @brief create game placing food and the snake
+Game::Game(WINDOW *win) : board(win), snake(this->board.getX()), food() {
     this->spawnFood();
     this->board.print(this->snake.getHead(), this->snake.getChar());
     for (std::pair i : this->snake.getBody())
@@ -58,14 +59,9 @@ void Game::print() {
     this->board.print(this->snake.getHead(), this->snake.getChar());
     wrefresh(this->board.getWin());
 }
-void Game::spawnSnake() {
-    constexpr int y = 1;
-    const int x = this->board.getX() / 2;
-    this->snake.setHead({y, x});
-    std::list<std::pair<int, int>> body;
-    for (int i = 1; i < x; ++i) body.push_front({y, i});
-    this->snake.setBody(body);
-}
+
+/// @brief randomly generate food following available positions
+/// (avalable positions do not contain the snake)
 void Game::spawnFood() {
     std::vector<std::pair<int, int>> validPositions;
     for (int i = 1; i <= this->board.getY(); ++i)
