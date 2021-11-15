@@ -65,7 +65,7 @@ void Game::spawnFood() {
     for (int i = 1; i <= this->board.getY(); ++i)
         for (int j = 1; j <= this->board.getX(); ++j) {
             std::pair<int, int> candidate = {i, j};
-            if (!snake.isInBody(candidate) && candidate != snake.getHead())
+            if (!this->snake.isInSnake(candidate))
                 validPositions.push_back(candidate);
         }
     int index = randomNumber(0, validPositions.size() - 1);

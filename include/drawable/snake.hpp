@@ -24,6 +24,7 @@ class Snake : public Drawable {
 
     /// Lookup
     bool isInBody(const std::pair<int, int> &p) const;
+    bool isInSnake(const std::pair<int, int> &p) const;
 
   private:
     static constexpr char ch = '@';

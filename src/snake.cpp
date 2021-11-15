@@ -29,3 +29,6 @@ bool Snake::isInBody(const std::pair<int, int> &p) const {
         if (p == i) return true;
     return false;
 }
+bool Snake::isInSnake(const std::pair<int, int> &p) const {
+    return (this->isInBody(p) || p == this->getHead());
+}
