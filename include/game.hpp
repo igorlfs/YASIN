@@ -7,9 +7,10 @@
 
 namespace game {
 
-enum directions { VERTICAL, HORIZONTAL };
+enum direction { VER, HOR };
 
 static constexpr int BLANK{(int)' '};
+static constexpr int PAUSE{(int)'p'};
 
 class Game {
   public:
@@ -26,13 +27,13 @@ class Game {
     drawable::Snake snake;
     drawable::Food food;
     int input{KEY_RIGHT};
-    directions direction{HORIZONTAL};
+    direction dir{HOR};
 
     // Set drawables according to board's dimensions
     void spawnSnake();
     void spawnFood();
 
-    // Create a window and print a game over message
+    int pause();
     void gameOver(const std::string &message);
 };
 } // namespace game

@@ -22,14 +22,13 @@ Game::Game(WINDOW *win) : board(win), snake(), food() {
 }
 void Game::processInput() {
     int input = wgetch(this->board.getWin());
-    std::map<int, directions> invalidMoves = {{KEY_UP, VERTICAL},
-                                              {KEY_DOWN, VERTICAL},
-                                              {KEY_LEFT, HORIZONTAL},
-                                              {KEY_RIGHT, HORIZONTAL}};
+    if (input == PAUSE) input = this->pause();
+    std::map<int, direction> invalidMoves = {
+        {KEY_UP, VER}, {KEY_DOWN, VER}, {KEY_LEFT, HOR}, {KEY_RIGHT, HOR}};
     for (auto i = invalidMoves.begin(); i != invalidMoves.end(); ++i) {
-        if (input == i->first && i->second != this->direction) {
+        if (input == i->first && i->second != this->dir) {
             this->input = input;
-            this->direction = i->second;
+            this->dir = i->second;
             return;
         }
     }
@@ -72,6 +71,20 @@ void Game::spawnFood() {
     int index = randomNumber(0, validPositions.size() - 1);
     this->food.setHead(validPositions[index]);
 }
+
+/// @brief interrupt game's flow until pause key is pressed again
+/// @return first non-pause input
+int Game::pause() {
+    bool shouldUnpause = false;
+    do {
+        int read = wgetch(this->board.getWin());
+        if (read == PAUSE) shouldUnpause = true;
+    } while (!shouldUnpause);
+    return wgetch(this->board.getWin());
+}
+
+/// @brief print a game over message and set state to gameOver
+/// @param custom message to display
 void Game::gameOver(const std::string &message) {
     int yMax, xMax;
     getmaxyx(stdscr, yMax, xMax);
