@@ -22,12 +22,12 @@ class Snake : public Drawable {
     void removeTail();
 
     /// Lookup
-    bool isInBody(const std::pair<int, int> &p) const;
-    bool isInSnake(const std::pair<int, int> &p) const;
+    [[nodiscard]] bool isInBody(const std::pair<int, int> &p) const;
+    [[nodiscard]] bool isInSnake(const std::pair<int, int> &p) const;
 
   private:
-    static constexpr int y = 1;
-    static constexpr char ch = '@';
+    static constexpr int Y = 1;
+    static constexpr char CH = '@';
     std::pair<int, int> oldHead;
     std::pair<int, int> oldTail;
     std::list<std::pair<int, int>> body;

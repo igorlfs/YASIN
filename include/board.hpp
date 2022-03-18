@@ -10,13 +10,15 @@ class Board {
     Board(WINDOW *win);
 
     /// Getters
-    int getX() { return this->xMax - 1; }
-    int getY() { return this->yMax - 1; }
-    int getSize() { return (this->xMax - 1) * (this->yMax - 1); }
+    [[nodiscard]] int getX() const { return this->xMax - 1; }
+    [[nodiscard]] int getY() const { return this->yMax - 1; }
+    [[nodiscard]] int getSize() const {
+        return (this->xMax - 1) * (this->yMax - 1);
+    }
     WINDOW *getWin() { return this->gameWindow; }
 
     /// Operations
-    bool isOutOfBounds(const std::pair<int, int> &p) const;
+    [[nodiscard]] bool isOutOfBounds(const std::pair<int, int> &p) const;
     void print(const std::pair<int, int> &p, const chtype &c) const;
 
   private:

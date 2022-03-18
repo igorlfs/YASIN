@@ -12,12 +12,16 @@ int main() {
     start_color();
     use_default_colors();
 
-    static constexpr int y = 6, x = 6;
-    int yMax, xMax;
+    static constexpr int y = 12;
+    static constexpr int x = 12;
+    static constexpr int delay = 5;
+    int yMax;
+    int xMax;
+
     getmaxyx(stdscr, yMax, xMax);
     WINDOW *gameWindow = newwin(y, x, (yMax - y) / 2, (xMax - x) / 2);
     game::Game snakeGame(gameWindow);
-    halfdelay(5);
+    halfdelay(delay);
     while (!snakeGame.isOver()) {
         snakeGame.processInput();
         snakeGame.update();
@@ -26,7 +30,6 @@ int main() {
 
     delwin(gameWindow);
     endwin();
-    return 0;
 }
 
 void checkColor() {

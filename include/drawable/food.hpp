@@ -7,10 +7,10 @@ class Food : public Drawable {
   public:
     Food() {
         init_pair(2, COLOR_RED, COLOR_BLACK);
-        this->setChar(ch, 2);
+        this->setChar(CH, 2);
     };
 
   private:
-    static constexpr char ch = '$';
+    static constexpr char CH = '$';
 };
 } // namespace drawable

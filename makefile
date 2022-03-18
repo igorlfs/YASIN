@@ -19,7 +19,7 @@ $(BUILD)/snake.o: $(INCLUDE)/drawable/drawable.hpp $(INCLUDE)/drawable/snake.hpp
 $(BUILD)/board.o: $(INCLUDE)/board.hpp $(SRC)/board.cpp
 		$(CC) $(CFLAGS) -I$(INCLUDE) -c $(SRC)/board.cpp -o $(BUILD)/board.o
 
-$(BUILD)/game.o: $(INCLUDE)/board.hpp $(INCLUDE)/drawable/food.hpp $(INCLUDE)/drawable/snake.hpp $(INCLUDE)/game.hpp $(SRC)/game.cpp
+$(BUILD)/game.o: $(INCLUDE)/board.hpp $(INCLUDE)/drawable/food.hpp $(INCLUDE)/drawable/snake.hpp $(INCLUDE)/game.hpp $(INCLUDE)/random.hpp $(SRC)/game.cpp
 		$(CC) $(CFLAGS) -I$(INCLUDE)/drawable -I$(INCLUDE) -c $(SRC)/game.cpp -o $(BUILD)/game.o
 
 $(BUILD)/main.o: $(INCLUDE)/game.hpp $(SRC)/main.cpp

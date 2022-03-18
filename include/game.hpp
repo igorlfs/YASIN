@@ -9,19 +9,19 @@ namespace game {
 
 enum direction { VER, HOR };
 
-static constexpr int BLANK{(int)' '};
-static constexpr int PAUSE{(int)'p'};
-
 class Game {
   public:
     Game(WINDOW *win);
 
-    bool isOver() { return this->isGameOver; }
+    [[nodiscard]] bool isOver() const { return this->isGameOver; }
     void processInput();
     void update();
     void print();
 
   private:
+    static constexpr int BLANK{(int)' '};
+    static constexpr int PAUSE{(int)'p'};
+
     bool isGameOver{false};
 
     board::Board board;
