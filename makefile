@@ -5,7 +5,7 @@ CFLAGS = -Wall -Wextra -std=c++17 -g -fstandalone-debug
 LFLAGS = -lncurses
 
 BUILD = build
-INCLUDE = include
+INCLUDE = lib
 SRC = src
 
 TARGET = $(BUILD)/binary
