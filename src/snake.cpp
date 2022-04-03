@@ -7,7 +7,7 @@ using namespace drawable;
 using std::pair;
 
 Snake::Snake(const int &boardX) {
-    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
+    init_pair(1, COLOR_GREEN, -1);
     this->setChar(CH, 1);
     const int X = boardX / 2;
     this->setHead({Y, X});
