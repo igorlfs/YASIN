@@ -1,7 +1,5 @@
 #include "board.hpp"
 
-using namespace board;
-
 Board::Board(WINDOW *win)
     : gameWindow(win), yMax(win->_maxy), xMax(win->_maxx) {
     box(this->gameWindow, 0, 0);

@@ -6,7 +6,7 @@ namespace drawable {
 class Food : public Drawable {
   public:
     Food() {
-        init_pair(2, COLOR_RED, COLOR_BLACK);
+        init_pair(2, COLOR_RED, -1);
         this->setChar(CH, 2);
     };
 
