@@ -1,6 +1,6 @@
 #include "snake.hpp"
+#include "msgassert.hpp"
 #include <algorithm>
-#include <cassert>
 
 using namespace drawable;
 
@@ -33,7 +33,7 @@ void Snake::insertHead(const pair<int, int> &newHead) {
 }
 
 void Snake::removeTail() {
-    assert(!this->body.empty());
+    assert(!this->body.empty(), "Snake has empty body");
     this->oldTail = this->body.back();
     this->body.pop_back();
 }

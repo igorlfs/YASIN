@@ -16,8 +16,10 @@ class Board {
     }
     WINDOW *getWin() { return this->gameWindow; }
 
-    /// Operations
+    /// Lookup
     [[nodiscard]] bool isOutOfBounds(const std::pair<int, int> &p) const;
+
+    /// Operations
     void print(const std::pair<int, int> &p, const chtype &c) const;
 
   private:

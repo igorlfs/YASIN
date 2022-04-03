@@ -6,9 +6,11 @@
 namespace drawable {
 class Drawable {
   public:
+    /// Getters
     [[nodiscard]] chtype getChar() const { return this->character; }
     [[nodiscard]] std::pair<int, int> getHead() const { return this->head; }
 
+    /// Setters
     void setChar(const char &c, const int &n) {
         this->character = c | A_BOLD | COLOR_PAIR(n);
     }

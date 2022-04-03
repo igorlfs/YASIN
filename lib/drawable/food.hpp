@@ -5,6 +5,7 @@
 namespace drawable {
 class Food : public Drawable {
   public:
+    /// Constructors
     Food() {
         init_pair(2, COLOR_RED, -1);
         this->setChar(CH, 2);
