@@ -3,7 +3,6 @@
 #include <ncurses.h>
 #include <utility>
 
-namespace board {
 class Board {
   public:
     /// Constructors
@@ -25,4 +24,3 @@ class Board {
     WINDOW *gameWindow;
     int yMax, xMax;
 };
-} // namespace board

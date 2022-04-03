@@ -5,8 +5,6 @@
 #include "snake.hpp"
 #include <string>
 
-namespace game {
-
 enum direction { VER, HOR };
 
 class Game {
@@ -24,7 +22,7 @@ class Game {
 
     bool isGameOver{false};
 
-    board::Board board;
+    Board board;
     drawable::Snake snake;
     drawable::Food food;
     int input{KEY_RIGHT};
@@ -35,4 +33,3 @@ class Game {
     int pause();
     void gameOver(const std::string &message);
 };
-} // namespace game

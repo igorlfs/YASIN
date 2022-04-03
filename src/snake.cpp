@@ -9,10 +9,10 @@ using std::pair;
 Snake::Snake(const int &boardX) {
     init_pair(1, COLOR_YELLOW, COLOR_BLACK);
     this->setChar(CH, 1);
-    const int x = boardX / 2;
-    this->setHead({Snake::Y, x});
-    for (int i = 1; i < x; ++i) {
-        this->body.push_front({Snake::Y, i});
+    const int X = boardX / 2;
+    this->setHead({Y, X});
+    for (int i = 1; i < X; ++i) {
+        this->body.push_front({Y, i});
     }
 }
 
