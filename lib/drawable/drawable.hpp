@@ -11,10 +11,10 @@ class Drawable {
     [[nodiscard]] std::pair<int, int> getHead() const { return this->head; }
 
     /// Setters
-    void setChar(const char &c, const int &n) {
-        this->character = c | A_BOLD | COLOR_PAIR(n);
+    void setChar(const char &cha, const int &n) {
+        this->character = cha | A_BOLD | COLOR_PAIR(n);
     }
-    void setHead(const std::pair<int, int> &p) { this->head = p; }
+    void setHead(const std::pair<int, int> &location) { this->head = location; }
 
   private:
     std::pair<int, int> head;

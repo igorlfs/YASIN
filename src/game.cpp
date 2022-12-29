@@ -12,8 +12,8 @@ using std::vector;
 Game::Game(WINDOW *win) : board(win), snake(this->board.getX()) {
     this->spawnFood();
     this->board.print(this->snake.getHead(), this->snake.getChar());
-    for (const auto &i : this->snake.getBody()) {
-        board.print(i, this->snake.getChar());
+    for (const auto &part : this->snake.getBody()) {
+        board.print(part, this->snake.getChar());
     }
     this->board.print(this->food.getHead(), this->food.getChar());
 }
@@ -101,8 +101,8 @@ void Game::gameOver(const string &message) {
     int yMax;
     int xMax;
     getmaxyx(stdscr, yMax, xMax);
-    const int X = message.size() + 2; // Message + Borders
-    WINDOW *gameOver = newwin(3, X, (yMax - 3) / 2, (xMax - X) / 2);
+    const int LENGTH = message.size() + 2; // Message + Borders
+    WINDOW *gameOver = newwin(3, LENGTH, (yMax - 3) / 2, (xMax - LENGTH) / 2);
     nocbreak(); // Disables half-delay mode
     box(gameOver, 0, 0);
     mvwprintw(gameOver, 1, 1, "%s", message.c_str());

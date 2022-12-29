@@ -8,11 +8,12 @@ Board::Board(WINDOW *win)
     leaveok(this->gameWindow, true);
 }
 
-bool Board::isOutOfBounds(const std::pair<int, int> &p) const {
-    return (p.first <= 0 || p.first >= this->yMax || p.second <= 0 ||
-            p.second >= this->xMax);
+bool Board::isOutOfBounds(const std::pair<int, int> &location) const {
+    return (location.first <= 0 || location.first >= this->yMax ||
+            location.second <= 0 || location.second >= this->xMax);
 }
 
-void Board::print(const std::pair<int, int> &p, const chtype &c) const {
-    mvwaddch(this->gameWindow, p.first, p.second, c);
+void Board::print(const std::pair<int, int> &location,
+                  const chtype &cha) const {
+    mvwaddch(this->gameWindow, location.first, location.second, cha);
 }

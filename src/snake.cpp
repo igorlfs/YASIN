@@ -8,11 +8,11 @@ using std::pair;
 
 Snake::Snake(const int &boardX) {
     init_pair(1, COLOR_GREEN, -1);
-    this->setChar(CH, 1);
-    const int X = boardX / 2;
-    this->setHead({Y, X});
-    for (int i = 1; i < X; ++i) {
-        this->body.push_front({Y, i});
+    this->setChar(CHAR, 1);
+    const int LENGTH = boardX / 2;
+    this->setHead({Snake::HEIGHT, LENGTH});
+    for (int i = 1; i < LENGTH; ++i) {
+        this->body.push_front({Snake::HEIGHT, i});
     }
 }
 
@@ -38,11 +38,13 @@ void Snake::removeTail() {
     this->body.pop_back();
 }
 
-bool Snake::isInBody(const pair<int, int> &p) const {
-    auto compare = [&p](pair<int, int> q) { return q == p; };
+bool Snake::isInBody(const pair<int, int> &location) const {
+    auto compare = [&location](const pair<int, int> &rhs) {
+        return rhs == location;
+    };
     return any_of(this->body.begin(), this->body.end(), compare);
 }
 
-bool Snake::isInSnake(const pair<int, int> &p) const {
-    return (this->isInBody(p) || p == this->getHead());
+bool Snake::isInSnake(const pair<int, int> &location) const {
+    return (this->isInBody(location) || location == this->getHead());
 }

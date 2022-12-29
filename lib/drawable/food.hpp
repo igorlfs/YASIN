@@ -8,10 +8,10 @@ class Food : public Drawable {
     /// Constructors
     Food() {
         init_pair(2, COLOR_RED, -1);
-        this->setChar(CH, 2);
+        this->setChar(CHAR, 2);
     };
 
   private:
-    static constexpr char CH = '$';
+    static constexpr char CHAR = '$';
 };
 } // namespace drawable

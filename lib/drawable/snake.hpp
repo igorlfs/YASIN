@@ -19,7 +19,9 @@ class Snake : public Drawable {
     [[nodiscard]] int getSize() const { return this->body.size() + 1; }
 
     /// Setters
-    void setOldHead(const std::pair<int, int> &p) { this->oldHead = p; }
+    void setOldHead(const std::pair<int, int> &location) {
+        this->oldHead = location;
+    }
 
     /// Modifiers
     std::pair<int, int> changeHead(const int &input);
@@ -27,12 +29,12 @@ class Snake : public Drawable {
     void removeTail();
 
     /// Lookup
-    [[nodiscard]] bool isInBody(const std::pair<int, int> &p) const;
-    [[nodiscard]] bool isInSnake(const std::pair<int, int> &p) const;
+    [[nodiscard]] bool isInBody(const std::pair<int, int> &location) const;
+    [[nodiscard]] bool isInSnake(const std::pair<int, int> &location) const;
 
   private:
-    static constexpr int Y = 1;
-    static constexpr char CH = '#';
+    static constexpr int HEIGHT = 1;
+    static constexpr char CHAR = '#';
     std::pair<int, int> oldHead;
     std::pair<int, int> oldTail;
     std::list<std::pair<int, int>> body;

@@ -11,14 +11,15 @@ int main() {
     start_color();
     use_default_colors();
 
-    static constexpr int Y = 6;
-    static constexpr int X = 6;
+    static constexpr int HEIGHT = 6;
+    static constexpr int WIDTH = 6;
     static constexpr int DELAY = 5;
     int yMax;
     int xMax;
 
     getmaxyx(stdscr, yMax, xMax);
-    WINDOW *gameWindow = newwin(Y, X, (yMax - Y) / 2, (xMax - X) / 2);
+    WINDOW *gameWindow =
+        newwin(HEIGHT, WIDTH, (yMax - HEIGHT) / 2, (xMax - WIDTH) / 2);
     Game snake(gameWindow);
     halfdelay(DELAY);
     while (!snake.isOver()) {
